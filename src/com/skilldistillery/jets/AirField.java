@@ -108,8 +108,8 @@ public class AirField {
 			}
 		}
 	}
-	
-	//DOGFIGHT
+
+	// DOGFIGHT
 	public void dogFight() {
 		for (Jet jetscargo : jets) {
 			if (jetscargo instanceof FighterJet) {
@@ -117,43 +117,42 @@ public class AirField {
 			}
 		}
 	}
-	
-	//ADDS JETS
+
+	// ADDS JETS
 	public void addJet() {
-	System.out.println("What type jet would you like to add? ");
-	System.out.println("1. Fighter Jet \n2. Cargo Plane \n3. Passenger Plane");
-	int userChoice = kb.nextInt();
-	System.out.print("What is the model? ");
-	String userModel = kb.next();
-	System.out.print("What is the speed? ");
-	double userSpeed = kb.nextDouble();
-	System.out.print("What is the range? ");
-	int userRange = kb.nextInt();
-	System.out.print("What is the price? ");
-	long userPrice = kb.nextLong();
-	switch (userChoice) {
-	case 1:
-		for (Iterator iterator = jets.iterator(); iterator.hasNext();) {
-			Jet jet = (Jet) iterator.next();
-			jets.add(new FighterJet(userModel, userSpeed, userRange, userPrice));
+		System.out.println("What type jet would you like to add? ");
+		System.out.println("1. Fighter Jet \n2. Cargo Plane \n3. Passenger Plane");
+		int userChoice = kb.nextInt();
+		System.out.print("What is the model? ");
+		String userModel = kb.next();
+		System.out.print("What is the speed? ");
+		double userSpeed = kb.nextDouble();
+		System.out.print("What is the range? ");
+		int userRange = kb.nextInt();
+		System.out.print("What is the price? ");
+		long userPrice = kb.nextLong();
+		
+		Jet it = null;
+		for (Iterator<Jet> iterator = jets.iterator(); iterator.hasNext();) {
+			it = iterator.next();
+
+			switch (userChoice) {
+			case 1:
+				it = new FighterJet(userModel, userSpeed, userRange, userPrice);
+				break;
+			case 2:
+				it = new CargoPlane(userModel, userSpeed, userRange, userPrice);
+				break;
+			case 3:
+				it = new FighterJet(userModel, userSpeed, userRange, userPrice);
+				break;
+			default:
+				System.out.print("Please enter a valid option");
+				userChoice = kb.nextInt();
+			}
 		}
-		break;
-	case 2:
-		for (Iterator iterator = jets.iterator(); iterator.hasNext();) {
-			Jet jet = (Jet) iterator.next();
-			jets.add(new CargoPlane(userModel, userSpeed, userRange, userPrice));
+		if (it != null) {
+			jets.add(it);
 		}
-		break;
-	case 3:
-		for (Iterator iterator = jets.iterator(); iterator.hasNext();) {
-			Jet jet = (Jet) iterator.next();
-			jets.add(new FighterJet(userModel, userSpeed, userRange, userPrice));
-		}
-		break;
-	default:
-		System.out.print("Please enter a valid option");
-		userChoice = kb.nextInt();
-	}
 	}
 }
-
