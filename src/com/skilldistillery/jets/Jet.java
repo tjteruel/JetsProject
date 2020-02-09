@@ -3,6 +3,8 @@ package com.skilldistillery.jets;
 import java.text.DecimalFormat;
 
 public abstract class Jet {
+	
+	//F I E L D S 
 	private String model;
 	private double speed;
 	private int range;
@@ -24,10 +26,13 @@ public abstract class Jet {
 		System.out.println(this.getModel() + " is flying with " + flightFormulaFormat + " hours left");
 	}
 	
-	//GETS FASTEST JET
-	
-	
-	public abstract double getSpeedInMach();
+	//GETS SPEED IN MACH	
+	public String getSpeedInMach() {
+		DecimalFormat df = new DecimalFormat("#.###");
+		double machSpeed = speed / 767;
+		String machSpeedFormat = df.format(machSpeed);
+		return machSpeedFormat;
+	}
 
 	//GETTERS AND SETTERS
 	public String getModel() {
@@ -66,15 +71,17 @@ public abstract class Jet {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Jet [model=");
+		builder.append("Model: ");
 		builder.append(model);
-		builder.append(", speed=");
-		builder.append(speed);
-		builder.append(", range=");
-		builder.append(range);
-		builder.append(", price=");
+		builder.append(", Speed:");
+		builder.append(speed + " MPH");
+		builder.append(", Range: ");
+		builder.append(range + " miles");
+		builder.append(", Mach Speed: ");
+		builder.append(getSpeedInMach() + " M");
+		builder.append(", Price: $");
 		builder.append(price);
-		builder.append("]");
+		builder.append("");
 		return builder.toString();
 	}
 

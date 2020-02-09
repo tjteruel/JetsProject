@@ -10,15 +10,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AirField {
+	
 	// F I E L D S
 	private List<Jet> jets = new ArrayList<>();
-
 	Scanner kb = new Scanner(System.in);
 
+	// M E T H O D S 
 	public AirField() {
 		readAndPopulateFromFile();
 	}
 
+	
+	//READS TEXT FILE AND ADS JETS TO LIST
 	public List<Jet> readAndPopulateFromFile() {
 		try {
 			FileReader fr = new FileReader("jets.txt");
@@ -75,7 +78,7 @@ public class AirField {
 			if (jetspeed != null) {
 				if (jetspeed.getSpeed() > currentSpeed) {
 					currentSpeed = jetspeed.getSpeed();
-					fastest = jetspeed.toString();
+					fastest = "The fastest jet is the " + jetspeed.getModel() + " with a speed of " + jetspeed.getSpeed() + " MPH. ";
 				}
 			}
 		}
@@ -93,7 +96,7 @@ public class AirField {
 			if (jetsrange != null) {
 				if (jetsrange.getSpeed() > currentRange) {
 					currentRange = jetsrange.getRange();
-					longestRange = jetsrange.toString();
+					longestRange = "The jet with the longest range is the " + jetsrange.getModel() + " with a range of " + jetsrange.getRange() + " miles. ";
 				}
 			}
 		}
@@ -109,29 +112,29 @@ public class AirField {
 		}
 	}
 
-	// DOGFIGHT
+	// INITIATES DOGFIGHT
 	public void dogFight() {
-		for (Jet jetscargo : jets) {
-			if (jetscargo instanceof FighterJet) {
-				((FighterJet) jetscargo).fightJets();
+		for (Jet jetsfighter : jets) {
+			if (jetsfighter instanceof FighterJet) {
+				((FighterJet) jetsfighter).fightJets();
 			}
 		}
 	}
 
-	// ADDS JETS
+	// USER ADDS JETS
 	public void addJet() {
 		System.out.println("What type jet would you like to add? ");
 		System.out.println("1. Fighter Jet \n2. Cargo Plane \n3. Passenger Plane");
 		int userChoice = kb.nextInt();
 		System.out.print("What is the model? ");
 		String userModel = kb.next();
-		System.out.print("What is the speed? ");
+		System.out.print("What is the speed (MPH)? ");
 		double userSpeed = kb.nextDouble();
 		System.out.print("What is the range? ");
 		int userRange = kb.nextInt();
 		System.out.print("What is the price? ");
 		long userPrice = kb.nextLong();
-		
+
 		Jet it = null;
 		for (Iterator<Jet> iterator = jets.iterator(); iterator.hasNext();) {
 			it = iterator.next();
@@ -155,4 +158,20 @@ public class AirField {
 			jets.add(it);
 		}
 	}
-}
+
+	// USER REMOVES JETS
+	public void removeJet() {
+		System.out.println("Which jet would you like to remove from the fleet? ");
+		System.out.println("Please select a number: ");
+		for (int i = 0; i < jets.size(); i++) {
+			System.out.println((i + 1) + ". " + jets.get(i));
+		}
+			int userChoice = kb.nextInt();
+			if (userChoice <= jets.size()) {
+			jets.remove(userChoice - 1);
+			System.out.println("Jet number " + userChoice + " was removed");
+			} else {
+				System.out.println("Please enter a valid option. ");
+			}
+		}
+	}
